@@ -13,15 +13,7 @@
 </head>
 
 <body>
-    <!-- ENHANCEMENT: Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-text">Preparing something special for you ❤️</div>
-        <div class="loading-hearts">
-            <span class="loading-heart">❤️</span>
-            <span class="loading-heart">💕</span>
-            <span class="loading-heart">💖</span>
-        </div>
-    </div>
+    <!-- LOADING SCREEN REMOVED - WAS BLOCKING THE SITE -->
 
     <!-- ENHANCEMENT: Music Toggle Button -->
     <button class="music-toggle" id="musicToggle" title="Toggle Music">
@@ -41,8 +33,8 @@
         <div class="content-center">
             <h1 class="typing-text" id="welcomeText"></h1>
             <button class="romantic-btn hidden" id="page1Btn">Click here 💕</button>
-            <!-- ENHANCEMENT: YES/NO Choice -->
-            <div class="choice-container hidden" id="choiceContainer">
+            <!-- YES/NO Choice temporarily hidden -->
+            <div class="choice-container hidden" id="choiceContainer" style="display:none;">
                 <button class="choice-btn yes-btn" id="yesBtn">YES ❤️</button>
                 <button class="choice-btn no-btn" id="noBtn">NO 💔</button>
             </div>
@@ -340,7 +332,8 @@
     <div class="hearts-fill" id="heartsFill"></div>
 
     <script src="script.js"></script>
-    <script src="enhancements.js"></script>
+    <!-- Enhancements temporarily disabled to ensure site works -->
+    <!-- <script src="enhancements.js"></script> -->
 </body>
 
 </html>
