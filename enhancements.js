@@ -1,5 +1,5 @@
 // ==========================================
-// ENHANCEMENT: JavaScript Features
+// ENHANCEMENT: JavaScript Features - FIXED VERSION
 // ==========================================
 
 // Global variables for enhancements
@@ -7,24 +7,29 @@ let musicPlaying = false;
 let giftsOpenedCount = 0;
 
 // ==========================================
-// LOADING SCREEN
+// LOADING SCREEN - FIXED
 // ==========================================
 window.addEventListener('DOMContentLoaded', () => {
     const loadingScreen = document.getElementById('loadingScreen');
-    const hasVisited = localStorage.getItem('valentineVisited');
 
-    if (!hasVisited) {
-        // First visit - show loading screen
+    // Clear any old localStorage for fresh start
+    localStorage.removeItem('valentineVisited');
+
+    // Always show loading screen briefly, then fade out
+    if (loadingScreen) {
         setTimeout(() => {
             loadingScreen.classList.add('fade-out');
-            localStorage.setItem('valentineVisited', 'true');
-        }, 2500);
-    } else {
-        // Already visited - hide immediately
-        loadingScreen.style.display = 'none';
+            // Remove from DOM after fade completes
+            setTimeout(() => {
+                loadingScreen.remove();
+            }, 800);
+        }, 2000); // Show for 2 seconds
     }
 
-    initializeEnhancements();
+    // Initialize enhancements after a brief delay
+    setTimeout(() => {
+        initializeEnhancements();
+    }, 100);
 });
 
 // ==========================================
@@ -32,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 function initializeEnhancements() {
     setupMusicToggle();
-    // setupYesNoChoice(); // DISABLED - Restore original button
+    setupYesNoChoice(); // RE-ENABLED AND FIXED
     setupGoldenHeart();
     setup4thGift();
     setupHiddenHeart();
@@ -46,6 +51,8 @@ function initializeEnhancements() {
 function setupMusicToggle() {
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
+
+    if (!musicToggle || !bgMusic) return;
 
     musicToggle.addEventListener('click', () => {
         if (musicPlaying) {
@@ -65,7 +72,7 @@ function setupMusicToggle() {
 }
 
 // ==========================================
-// YES/NO CHOICE - Entry Page
+// YES/NO CHOICE - FIXED VERSION
 // ==========================================
 function setupYesNoChoice() {
     const page1Btn = document.getElementById('page1Btn');
@@ -74,28 +81,26 @@ function setupYesNoChoice() {
     const noBtn = document.getElementById('noBtn');
     const niceTryMsg = document.getElementById('niceTryMsg');
 
-    // OPTION 1: Keep original button functionality (no YES/NO choice)
-    // Comment this block out if you want the YES/NO feature
+    if (!yesBtn || !noBtn || !page1Btn || !choiceContainer) {
+        console.log('YES/NO elements not found');
+        return;
+    }
 
-    // OPTION 2: Use YES/NO choice
-    // Wait for typing animation to complete, then swap button for choices
-    // The typing takes about 7-8 seconds total:
-    // "Hi my love ❤️" (1.5s) + "I have something special for you…" (3.5s) + "Happy Valentine's Day, my jaan 💕" (3.5s)
-
+    // Wait for typing animation to complete (about 7-8 seconds)
+    // Then replace the original button with YES/NO choices
     setTimeout(() => {
-        if (page1Btn && !page1Btn.classList.contains('hidden')) {
-            page1Btn.style.display = 'none'; // Hide original button
-            choiceContainer.classList.remove('hidden'); // Show choices
-        }
-    }, 7500); // Show after typing completes
+        page1Btn.style.display = 'none';
+        choiceContainer.classList.remove('hidden');
+        choiceContainer.style.display = 'flex';
+    }, 7500);
 
     // NO button - dodge on hover/click
     let noDodgeCount = 0;
     const dodgeNo = () => {
         const maxX = window.innerWidth - noBtn.offsetWidth - 40;
         const maxY = window.innerHeight - noBtn.offsetHeight - 40;
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+        const x = Math.max(20, Math.random() * maxX);
+        const y = Math.max(20, Math.random() * maxY);
 
         noBtn.style.position = 'fixed';
         noBtn.style.left = x + 'px';
@@ -109,6 +114,7 @@ function setupYesNoChoice() {
     };
 
     noBtn.addEventListener('mouseenter', dodgeNo);
+    noBtn.addEventListener('touchstart', dodgeNo); // Mobile support
     noBtn.addEventListener('click', (e) => {
         e.preventDefault();
         dodgeNo();
@@ -120,8 +126,14 @@ function setupYesNoChoice() {
         createConfetti();
 
         setTimeout(() => {
-            goToPage('page2');
-            // Don't call playMusic() here - let the original flow handle it
+            // Use the global goToPage function from script.js
+            if (typeof goToPage === 'function') {
+                goToPage('page2');
+            }
+            // Also try to play music
+            if (typeof playMusic === 'function') {
+                playMusic();
+            }
         }, 1000);
     });
 }
@@ -130,20 +142,25 @@ function setupYesNoChoice() {
 // GOLDEN HEART - Game Enhancement
 // ==========================================
 function setupGoldenHeart() {
-    // Modify the existing game initialization
-    const originalInitializeGame = window.initializeGame;
+    // Store reference to original initializeGame if it exists
+    const originalInitGame = window.initializeGame;
 
+    // Override the game initialization
     window.initializeGame = function () {
         const gameArea = document.getElementById('gameArea');
+        if (!gameArea) return;
+
         const hearts = ['❤️', '💕', '💖', '💗', '💝', '💓', '💘'];
         let goldenHeartCreated = false;
+        let score = window.score || 0;
+        const targetScore = window.targetScore || 10;
 
         function createHeart() {
             const heart = document.createElement('div');
             heart.className = 'game-heart';
 
-            // 10% chance for golden heart
-            const isGolden = !goldenHeartCreated && Math.random() < 0.1;
+            // 15% chance for golden heart (increased from 10%)
+            const isGolden = !goldenHeartCreated && Math.random() < 0.15;
             if (isGolden) {
                 heart.classList.add('golden-heart');
                 heart.textContent = '🧡';
@@ -177,9 +194,11 @@ function setupGoldenHeart() {
 
         function popHeart(heart) {
             score++;
-            document.getElementById('score').textContent = score;
+            if (window.score !== undefined) window.score = score;
+            const scoreEl = document.getElementById('score');
+            if (scoreEl) scoreEl.textContent = score;
 
-            // Enhanced sparkle explosion
+            // Sparkle explosion
             createSparkleExplosion(heart.offsetLeft, heart.offsetTop);
 
             heart.style.transform = 'scale(1.5)';
@@ -187,12 +206,18 @@ function setupGoldenHeart() {
 
             setTimeout(() => heart.remove(), 300);
 
-            createParticles(heart.offsetLeft, heart.offsetTop);
+            // Use original createParticles if available
+            if (typeof createParticles === 'function') {
+                createParticles(heart.offsetLeft, heart.offsetTop);
+            }
 
             if (score >= targetScore) {
                 setTimeout(() => {
                     gameArea.innerHTML = '';
-                    document.getElementById('gameComplete').classList.remove('hidden');
+                    const gameComplete = document.getElementById('gameComplete');
+                    if (gameComplete) {
+                        gameComplete.classList.remove('hidden');
+                    }
                     createConfetti();
                 }, 500);
             } else {
@@ -209,11 +234,18 @@ function setupGoldenHeart() {
 
 function showBonusPopup() {
     const bonusPopup = document.getElementById('bonusPopup');
-    bonusPopup.classList.remove('hidden');
+    if (!bonusPopup) return;
 
-    document.getElementById('closeBonusBtn').addEventListener('click', () => {
-        bonusPopup.classList.add('hidden');
-    }, { once: true });
+    bonusPopup.classList.remove('hidden');
+    bonusPopup.style.display = 'block';
+
+    const closeBtn = document.getElementById('closeBonusBtn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            bonusPopup.classList.add('hidden');
+            bonusPopup.style.display = 'none';
+        }, { once: true });
+    }
 }
 
 function createSparkleExplosion(x, y) {
@@ -232,26 +264,35 @@ function createSparkleExplosion(x, y) {
 // 4TH GIFT BOX
 // ==========================================
 function setup4thGift() {
-    // Override existing gift opening function
+    // Store original openGift function
     const originalOpenGift = window.openGift;
 
     window.openGift = function (giftBox) {
         const giftNumber = giftBox.dataset.gift;
+        const giftsOpened = window.giftsOpened || new Set();
 
         // Check if gift 4 is locked
         if (giftNumber === '4' && giftBox.classList.contains('locked')) {
-            return; // Don't open if locked
+            return;
         }
 
         if (!giftsOpened.has(giftNumber)) {
             giftsOpened.add(giftNumber);
+            if (window.giftsOpened) window.giftsOpened = giftsOpened;
             giftsOpenedCount++;
             giftBox.classList.add('opened');
 
-            createCelebration(giftBox);
+            // Use original createCelebration if available
+            if (typeof createCelebration === 'function') {
+                createCelebration(giftBox);
+            } else {
+                createConfetti();
+            }
 
             setTimeout(() => {
-                goToPage('gift' + giftNumber);
+                if (typeof goToPage === 'function') {
+                    goToPage('gift' + giftNumber);
+                }
             }, 800);
 
             // Unlock 4th gift when first 3 are opened
@@ -259,15 +300,18 @@ function setup4thGift() {
                 unlock4thGift();
             }
 
-            // Check if all gifts opened (now 4)
+            // Check if all gifts opened
             if (giftsOpened.size === 4) {
                 setTimeout(() => {
-                    document.getElementById('allGiftsBtn').classList.remove('hidden');
+                    const allGiftsBtn = document.getElementById('allGiftsBtn');
+                    if (allGiftsBtn) allGiftsBtn.classList.remove('hidden');
                 }, 1000);
             }
         } else {
-            // Already opened, just show the page
-            goToPage('gift' + giftNumber);
+            // Already opened
+            if (typeof goToPage === 'function') {
+                goToPage('gift' + giftNumber);
+            }
         }
     };
 }
@@ -288,49 +332,48 @@ function unlock4thGift() {
 }
 
 // ==========================================
-// HIDDEN FLOATING HEART - Easter Egg
+// HIDDEN FLOATING HEART
 // ==========================================
 function setupHiddenHeart() {
     const hiddenHeart = document.getElementById('hiddenHeart');
     const reasonsPopup = document.getElementById('reasonsPopup');
     const closeReasonsBtn = document.getElementById('closeReasonsBtn');
 
-    if (hiddenHeart) {
+    if (hiddenHeart && reasonsPopup) {
         hiddenHeart.addEventListener('click', () => {
             reasonsPopup.classList.add('show');
+            reasonsPopup.style.transform = 'translate(-50%, -50%) scale(1)';
             createHeartExplosion(hiddenHeart);
         });
     }
 
-    closeReasonsBtn.addEventListener('click', () => {
-        reasonsPopup.classList.remove('show');
-    });
+    if (closeReasonsBtn && reasonsPopup) {
+        closeReasonsBtn.addEventListener('click', () => {
+            reasonsPopup.classList.remove('show');
+            reasonsPopup.style.transform = 'translate(-50%, -50%) scale(0)';
+        });
+    }
 }
 
 // ==========================================
 // FINAL PAGE ENHANCEMENTS
 // ==========================================
 function setupFinalPageEnhancements() {
-    const hugBtn = document.getElementById('hugBtn');
-    const heartsFill = document.getElementById('heartsFill');
-    const finalGlowMsg = document.getElementById('finalGlowMsg');
-
-    // Show hug button after messages appear
+    // Show hug button after messages appear (6 seconds)
     setTimeout(() => {
+        const hugBtn = document.getElementById('hugBtn');
         if (hugBtn) hugBtn.classList.remove('hidden');
-    }, 6000);
+    }, 8000);
 
+    const hugBtn = document.getElementById('hugBtn');
     if (hugBtn) {
         hugBtn.addEventListener('click', () => {
-            // Fill screen with hearts
             fillScreenWithHearts();
-
-            // Hide hug button
             hugBtn.style.display = 'none';
 
-            // Show final glow message
             setTimeout(() => {
-                finalGlowMsg.classList.remove('hidden');
+                const finalGlowMsg = document.getElementById('finalGlowMsg');
+                if (finalGlowMsg) finalGlowMsg.classList.remove('hidden');
             }, 1500);
         });
     }
@@ -338,6 +381,8 @@ function setupFinalPageEnhancements() {
 
 function fillScreenWithHearts() {
     const heartsFill = document.getElementById('heartsFill');
+    if (!heartsFill) return;
+
     const hearts = ['❤️', '💕', '💖', '💗', '💝', '💓'];
 
     for (let i = 0; i < 50; i++) {
@@ -356,7 +401,6 @@ function fillScreenWithHearts() {
 // HELPER FUNCTIONS
 // ==========================================
 
-// Heart Explosion Effect
 function createHeartExplosion(element) {
     const rect = element.getBoundingClientRect();
     const hearts = ['❤️', '💕', '💖', '💗', '💝'];
@@ -377,12 +421,10 @@ function createHeartExplosion(element) {
         particle.style.setProperty('--ty', ty + 'px');
 
         document.body.appendChild(particle);
-
         setTimeout(() => particle.remove(), 1000);
     }
 }
 
-// Confetti System
 function createConfetti() {
     const hearts = ['❤️', '💕', '💖', '💗', '💝'];
 
@@ -401,7 +443,6 @@ function createConfetti() {
     }
 }
 
-// Add click animations to all buttons
 function addClickAnimations() {
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.romantic-btn, .choice-btn, .gift-box');
@@ -412,15 +453,4 @@ function addClickAnimations() {
     });
 }
 
-// Make music play automatically after YES button
-function playMusic() {
-    const bgMusic = document.getElementById('bgMusic');
-    const musicToggle = document.getElementById('musicToggle');
-
-    bgMusic.volume = 0.3;
-    bgMusic.play().catch(err => console.log('Music autoplay blocked'));
-    musicToggle.textContent = '🎵';
-    musicPlaying = true;
-}
-
-console.log('💝 Valentine\'s Enhancements Loaded! 💝');
+console.log('💝 Valentine\'s Enhancements Loaded & Fixed! 💝');
