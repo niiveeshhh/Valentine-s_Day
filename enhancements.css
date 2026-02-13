@@ -1,0 +1,731 @@
+/* ========================================
+   ENHANCEMENT: Global Features
+   ======================================== */
+
+/* Custom Heart Cursor */
+body {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">❤️</text></svg>'), auto;
+}
+
+.romantic-btn,
+.gift-box,
+.game-heart,
+.choice-btn {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><text y="24" font-size="24">💖</text></svg>'), pointer !important;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: var(--white);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    margin-bottom: 2rem;
+}
+
+.loading-hearts {
+    display: flex;
+    gap: 1rem;
+}
+
+.loading-heart {
+    font-size: 2rem;
+    animation: loadingBounce 1s ease-in-out infinite;
+}
+
+.loading-heart:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loading-heart:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-heart:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loadingBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Music Toggle Button */
+.music-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--deep-pink) 100%);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    color: var(--white);
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.6);
+}
+
+.music-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Click Animation - Bounce */
+.btn-click-bounce {
+    animation: btnBounce 0.3s ease;
+}
+
+@keyframes btnBounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+}
+
+/* Heart Explosion Effect */
+.heart-particle {
+    position: fixed;
+    font-size: 1.5rem;
+    pointer-events: none;
+    z-index: 9999;
+    animation: heartExplode 1s ease-out forwards;
+}
+
+@keyframes heartExplode {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0.5) rotate(360deg);
+    }
+}
+
+/* Confetti System */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--rose);
+    z-index: 9999;
+    pointer-events: none;
+    animation: confettiFall 3s ease-out forwards;
+}
+
+.confetti.heart {
+    font-size: 1.2rem;
+    width: auto;
+    height: auto;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Enhanced Page Transitions */
+.page.zoom-in {
+    animation: zoomIn 0.8s ease forwards;
+}
+
+.page.zoom-out {
+    animation: zoomOut 0.8s ease forwards;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Heart Dissolve Transition */
+.page.heart-dissolve-in {
+    animation: heartDissolveIn 1s ease forwards;
+}
+
+@keyframes heartDissolveIn {
+    0% {
+        opacity: 0;
+        filter: blur(20px);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* ========================================
+   ENHANCEMENT: Entry Page YES/NO Choice
+   ======================================== */
+
+.choice-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.choice-btn {
+    background: linear-gradient(135deg, var(--rose) 0%, var(--deep-pink) 100%);
+    border: none;
+    padding: 20px 60px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--white);
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+}
+
+.choice-btn.yes-btn {
+    background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+}
+
+.choice-btn.no-btn {
+    background: linear-gradient(135deg, #999 0%, #666 100%);
+    transition: all 0.2s ease;
+}
+
+.choice-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.6);
+}
+
+.nice-try-msg {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--white);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    margin-top: 2rem;
+    animation: fadeInUp 0.5s ease;
+}
+
+/* ========================================
+   ENHANCEMENT: Game Page Features
+   ======================================== */
+
+.golden-heart {
+    filter: drop-shadow(0 0 20px gold) hue-rotate(45deg);
+    animation: goldenGlow 1.5s ease-in-out infinite !important;
+}
+
+@keyframes goldenGlow {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 20px gold) hue-rotate(45deg);
+    }
+
+    50% {
+        transform: scale(1.2) rotate(10deg);
+        filter: drop-shadow(0 0 30px gold) hue-rotate(45deg) brightness(1.3);
+    }
+}
+
+.bonus-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.95) 0%, rgba(255, 165, 0, 0.95) 100%);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(255, 215, 0, 0.5);
+    z-index: 10001;
+    text-align: center;
+    animation: popupAppear 0.5s ease forwards;
+}
+
+@keyframes popupAppear {
+    to {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.bonus-popup h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.bonus-popup button {
+    margin-top: 2rem;
+    padding: 15px 40px;
+    background: #333;
+    color: gold;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bonus-popup button:hover {
+    transform: scale(1.1);
+}
+
+/* ========================================
+   ENHANCEMENT: 4th Gift Box
+   ======================================== */
+
+.gift-box.locked {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+    cursor: not-allowed !important;
+}
+
+.gift-box.locked .lock-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+}
+
+.gift-box.unlock-animation {
+    animation: unlockGift 1s ease forwards;
+}
+
+@keyframes unlockGift {
+    0% {
+        filter: grayscale(0.5);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.2) rotate(5deg);
+    }
+
+    100% {
+        filter: grayscale(0);
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.hug-container {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.hearts-hug-animation {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    font-size: 5rem;
+}
+
+.hearts-hug-animation::before,
+.hearts-hug-animation::after {
+    content: '❤️';
+    animation: heartsComeToget her 2s ease-in-out;
+}
+
+@keyframes heartsComeTogether {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Hidden Floating Heart */
+.hidden-heart {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floatGentle 3s ease-in-out infinite;
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+.hidden-heart:hover {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
+}
+
+@keyframes floatGentle {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(10deg);
+    }
+}
+
+/* Reasons Popup */
+.reasons-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.98) 0%, rgba(255, 105, 180, 0.98) 100%);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(255, 105, 180, 0.5);
+    z-index: 10001;
+    max-width: 500px;
+    width: 90%;
+}
+
+.reasons-popup.show {
+    animation: popupAppear 0.5s ease forwards;
+}
+
+.reasons-popup h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: var(--white);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.reasons-list {
+    list-style: none;
+    padding: 0;
+}
+
+.reasons-list li {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    opacity: 0;
+    animation: reasonFadeIn 0.5s ease forwards;
+}
+
+.reasons-list li:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.reasons-list li:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.reasons-list li:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.reasons-list li:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+@keyframes reasonFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.close-popup-btn {
+    display: block;
+    margin: 2rem auto 0;
+    padding: 12px 30px;
+    background: var(--white);
+    color: var(--deep-pink);
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-popup-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   ENHANCEMENT: Love Letter Envelope
+   ======================================== */
+
+.envelope-container {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto 2rem;
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--cream);
+    border: 2px solid var(--gold);
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: var(--cream);
+    transform-origin: top;
+    animation: openEnvelope 2s ease forwards;
+    border-bottom: 2px solid var(--gold);
+    z-index: 2;
+}
+
+@keyframes openEnvelope {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    100% {
+        transform: rotateX(-180deg);
+    }
+}
+
+.letter-slide-out {
+    animation: letterSlideOut 1.5s ease 2s forwards;
+}
+
+@keyframes letterSlideOut {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(-100px);
+        opacity: 1;
+    }
+}
+
+/* Enhanced Letter Floating */
+.letter-paper.floating {
+    animation: letterFloat 4s ease-in-out infinite;
+}
+
+@keyframes letterFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+}
+
+/* Glowing Background Effect */
+.letter-container.glowing {
+    background: radial-gradient(circle at center, rgba(255, 182, 193, 0.3), transparent 70%);
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        background: radial-gradient(circle at center, rgba(255, 182, 193, 0.2), transparent 70%);
+    }
+
+    50% {
+        background: radial-gradient(circle at center, rgba(255, 182, 193, 0.4), transparent 70%);
+    }
+}
+
+/* ========================================
+   ENHANCEMENT: Final Page Hug Button
+   ======================================== */
+
+.hug-btn {
+    background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+    border: none;
+    padding: 25px 70px;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--white);
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 3rem;
+    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5);
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    animation: pulse 2s infinite;
+}
+
+.hug-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 50px rgba(255, 20, 147, 0.7);
+}
+
+/* Hearts Fill Screen Effect */
+.hearts-fill {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+.fill-heart {
+    position: absolute;
+    font-size: 2rem;
+    animation: heartFill 2s ease-out forwards;
+}
+
+@keyframes heartFill {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+}
+
+.final-glow-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: var(--white);
+    text-shadow: 0 0 30px rgba(255, 255, 255, 1),
+        0 0 60px rgba(255, 105, 180, 0.8),
+        0 0 90px rgba(255, 20, 147, 0.6);
+    z-index: 9999;
+    opacity: 0;
+    animation: finalGlowAppear 2s ease 1s forwards;
+}
+
+@keyframes finalGlowAppear {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Adjustments for Enhancements */
+@media (max-width: 768px) {
+    .choice-btn {
+        padding: 15px 40px;
+        font-size: 1.2rem;
+    }
+
+    .loading-text {
+        font-size: 1.8rem;
+    }
+
+    .music-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .reasons-popup {
+        padding: 2rem 1.5rem;
+    }
+
+    .hug-btn {
+        padding: 20px 50px;
+        font-size: 1.5rem;
+    }
+
+    .final-glow-message {
+        font-size: 2.5rem;
+    }
+}

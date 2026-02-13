@@ -9,9 +9,25 @@
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="enhancements.css">
 </head>
 
 <body>
+    <!-- ENHANCEMENT: Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">Preparing something special for you ❤️</div>
+        <div class="loading-hearts">
+            <span class="loading-heart">❤️</span>
+            <span class="loading-heart">💕</span>
+            <span class="loading-heart">💖</span>
+        </div>
+    </div>
+
+    <!-- ENHANCEMENT: Music Toggle Button -->
+    <button class="music-toggle" id="musicToggle" title="Toggle Music">
+        🎵
+    </button>
+
     <!-- Background Music -->
     <audio id="bgMusic" loop>
         <source src="song.mp3" type="audio/mpeg">
@@ -25,6 +41,12 @@
         <div class="content-center">
             <h1 class="typing-text" id="welcomeText"></h1>
             <button class="romantic-btn hidden" id="page1Btn">Click here 💕</button>
+            <!-- ENHANCEMENT: YES/NO Choice -->
+            <div class="choice-container hidden" id="choiceContainer">
+                <button class="choice-btn yes-btn" id="yesBtn">YES ❤️</button>
+                <button class="choice-btn no-btn" id="noBtn">NO 💔</button>
+            </div>
+            <p class="nice-try-msg hidden" id="niceTryMsg">Nice try 😌 but you are mine ❤️</p>
         </div>
     </section>
 
@@ -77,7 +99,16 @@
                     <h3>You</h3>
                     <div class="gift-glow"></div>
                 </div>
+                <!-- ENHANCEMENT: 4th Gift Box -->
+                <div class="gift-box locked" data-gift="4">
+                    <div class="gift-icon">🤗</div>
+                    <h3>When you need a hug</h3>
+                    <div class="lock-icon">🔒</div>
+                    <div class="gift-glow"></div>
+                </div>
             </div>
+            <!-- ENHANCEMENT: Hidden Floating Heart Easter Egg -->
+            <div class="hidden-heart" id="hiddenHeart" style="top: 15%; left: 85%;">💝</div>
             <button class="romantic-btn hidden" id="allGiftsBtn">Continue to surprise 💖</button>
         </div>
     </section>
@@ -261,14 +292,55 @@
         <div class="content-center">
             <div class="final-message">
                 <h2 class="glow-text fade-in-text">No matter what happens…</h2>
-                <h2 class="glow-text fade-in-text delay-1">You will always be my forever ❤️</h2>
-                <h2 class="glow-text fade-in-text delay-2">I love you endlessly.</h2>
+                <h2 class="glow-text fade-in-text delay-1">I will always choose you...</h2>
+                <h2 class="glow-text fade-in-text delay-2">You are my forever ❤️</h2>
             </div>
+            <!-- ENHANCEMENT: Hug Me Button -->
+            <button class="hug-btn hidden" id="hugBtn">Hug me 🤗</button>
+            <div class="final-glow-message hidden" id="finalGlowMsg">I love you endlessly.</div>
             <button class="romantic-btn" id="replayBtn">Replay Memories 💖</button>
         </div>
     </section>
 
+    <!-- ENHANCEMENT: Page 11 - Gift 4 (Hug Page) -->
+    <section class="page gift-page" id="gift4">
+        <div class="gallery-container">
+            <button class="back-btn" onclick="goToPage('page4')">← Back to Gifts</button>
+            <div class="hug-container">
+                <div class="hearts-hug-animation"></div>
+                <h2 class="glow-text">I'm always here for you ❤️</h2>
+                <p style="font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-top: 2rem;">
+                    Whenever you need a warm embrace, remember that I'm just a heartbeat away.
+                    You are never alone, my love. 🤗
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENHANCEMENT: Reasons Why I Love You Popup -->
+    <div class="reasons-popup" id="reasonsPopup">
+        <h2>Reasons why I love you ❤️</h2>
+        <ul class="reasons-list">
+            <li>💖 Your smile that brightens my darkest days</li>
+            <li>💕 Your voice that brings me peace</li>
+            <li>💗 Your eyes that see straight into my soul</li>
+            <li>💝 Everything about you - you're perfect to me</li>
+        </ul>
+        <button class="close-popup-btn" id="closeReasonsBtn">Close</button>
+    </div>
+
+    <!-- ENHANCEMENT: Bonus Golden Heart Popup -->
+    <div class="bonus-popup hidden" id="bonusPopup">
+        <h2>Bonus unlocked because you're extra special ❤️</h2>
+        <p style="font-size: 1.2rem; color: #333;">You found the golden heart! Just like you're golden to me 🧡</p>
+        <button id="closeBonusBtn">Continue</button>
+    </div>
+
+    <!-- ENHANCEMENT: Hearts Fill Container -->
+    <div class="hearts-fill" id="heartsFill"></div>
+
     <script src="script.js"></script>
+    <script src="enhancements.js"></script>
 </body>
 
 </html>
