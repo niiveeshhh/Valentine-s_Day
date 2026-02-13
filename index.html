@@ -332,8 +332,23 @@
     <div class="hearts-fill" id="heartsFill"></div>
 
     <script src="script.js"></script>
-    <!-- Enhancements temporarily disabled to ensure site works -->
-    <!-- <script src="enhancements.js"></script> -->
+
+    <!-- FAILSAFE: Force hide loading screen after 4 seconds NO MATTER WHAT -->
+    <script>
+        setTimeout(function () {
+            var loading = document.getElementById('loadingScreen');
+            if (loading) {
+                loading.style.transition = 'opacity 0.8s ease';
+                loading.style.opacity = '0';
+                setTimeout(function () {
+                    loading.style.display = 'none';
+                    loading.remove();
+                }, 800);
+            }
+        }, 4000); // 4 second max timeout
+    </script>
+
+    <script src="enhancements.js"></script>
 </body>
 
 </html>

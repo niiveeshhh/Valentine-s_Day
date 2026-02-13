@@ -1,133 +1,303 @@
 // ==========================================
-// EMERGENCY FIX - SIMPLE VERSION
+// LOADING SCREEN - BULLETPROOF VERSION
 // ==========================================
 
-// Hide loading screen IMMEDIATELY
-document.addEventListener('DOMContentLoaded', function () {
-    const loading = document.getElementById('loadingScreen');
-    if (loading) loading.remove();
-});
+// FAILSAFE #1: Immediate timeout - 5 seconds max
+setTimeout(function () {
+    hideLoadingScreen();
+}, 5000);
+
+// FAILSAFE #2: On DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLoadingSequence);
+} else {
+    // DOM already loaded
+    initLoadingSequence();
+}
+
+// FAILSAFE #3: On window load
+window.addEventListener('load', hideLoadingScreen);
+
+// Main initialization
+function initLoadingSequence() {
+    // Wait 2.5 seconds, then hide
+    setTimeout(function () {
+        hideLoadingScreen();
+    }, 2500);
+}
+
+// Guaranteed hide function
+function hideLoadingScreen() {
+    var loadingScreen = document.getElementById('loadingScreen');
+    if (!loadingScreen) return; // Already removed
+
+    // Prevent multiple calls
+    if (loadingScreen.dataset.hiding === 'true') return;
+    loadingScreen.dataset.hiding = 'true';
+
+    // Smooth fade out
+    loadingScreen.style.transition = 'opacity 0.8s ease';
+    loadingScreen.style.opacity = '0';
+
+    // Remove after fade
+    setTimeout(function () {
+        if (loadingScreen && loadingScreen.parentNode) {
+            loadingScreen.style.display = 'none';
+            loadingScreen.remove();
+        }
+    }, 800);
+}
+
+// ==========================================
+// ENHANCED FEATURES
+// ==========================================
 
 // Global variables
-let musicPlaying = false;
-let giftsOpenedCount = 0;
+var musicPlaying = false;
+var giftsOpenedCount = 0;
 
-// Initialize after a brief delay so original script loads first
+// Initialize enhancements after loading screen is gone
 setTimeout(function () {
     initEnhancements();
 }, 100);
 
 function initEnhancements() {
-    // Music toggle
-    const musicBtn = document.getElementById('musicToggle');
-    const music = document.getElementById('bgMusic');
-    if (musicBtn && music) {
-        musicBtn.addEventListener('click', function () {
-            if (musicPlaying) {
-                music.pause();
-                musicBtn.textContent = '🔇';
-                musicPlaying = false;
-            } else {
-                music.play().catch(e => console.log('Music blocked'));
-                musicBtn.textContent = '🎵';
-                musicPlaying = true;
-            }
-        });
-    }
-
-    // Setup other features
-    setupYesNo();
-    setupGifts();
+    setupMusicToggle();
+    setupYesNoChoice();
+    setup4thGift();
     setupHiddenHeart();
+    setupHugButton();
 }
 
-function setupYesNo() {
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const origBtn = document.getElementById('page1Btn');
-    const choiceDiv = document.getElementById('choiceContainer');
+// ==========================================
+// MUSIC TOGGLE
+// ==========================================
+function setupMusicToggle() {
+    var musicBtn = document.getElementById('musicToggle');
+    var music = document.getElementById('bgMusic');
 
-    if (!yesBtn || !noBtn) return;
+    if (!musicBtn || !music) return;
 
-    // Show YES/NO after typing (8 seconds)
+    musicBtn.addEventListener('click', function () {
+        if (musicPlaying) {
+            music.pause();
+            musicBtn.textContent = '🔇';
+            musicPlaying = false;
+        } else {
+            music.play().catch(function (e) {
+                console.log('Music playback blocked by browser');
+            });
+            musicBtn.textContent = '🎵';
+            musicPlaying = true;
+        }
+    });
+}
+
+// ==========================================
+// YES/NO CHOICE
+// ==========================================
+function setupYesNoChoice() {
+    var yesBtn = document.getElementById('yesBtn');
+    var noBtn = document.getElementById('noBtn');
+    var origBtn = document.getElementById('page1Btn');
+    var choiceDiv = document.getElementById('choiceContainer');
+    var niceMsg = document.getElementById('niceTryMsg');
+
+    if (!yesBtn || !noBtn || !origBtn || !choiceDiv) return;
+
+    // Wait for typing animation (8 seconds), then show YES/NO
     setTimeout(function () {
-        if (origBtn) origBtn.style.display = 'none';
-        if (choiceDiv) choiceDiv.classList.remove('hidden');
+        origBtn.style.display = 'none';
+        choiceDiv.style.display = 'flex';
+        choiceDiv.classList.remove('hidden');
     }, 8000);
 
-    // NO button dodges
-    noBtn.addEventListener('mouseenter', function () {
-        const x = Math.random() * (window.innerWidth - 200);
-        const y = Math.random() * (window.innerHeight - 100);
+    // NO button dodge behavior
+    var dodgeCount = 0;
+    function dodgeNo() {
+        var maxX = window.innerWidth - 200;
+        var maxY = window.innerHeight - 100;
+        var x = 20 + Math.random() * Math.max(0, maxX - 20);
+        var y = 20 + Math.random() * Math.max(0, maxY - 20);
+
         noBtn.style.position = 'fixed';
         noBtn.style.left = x + 'px';
         noBtn.style.top = y + 'px';
+        noBtn.style.transition = 'all 0.3s ease';
+
+        dodgeCount++;
+        if (dodgeCount >= 3 && niceMsg) {
+            niceMsg.classList.remove('hidden');
+        }
+    }
+
+    noBtn.addEventListener('mouseenter', dodgeNo);
+    noBtn.addEventListener('touchstart', dodgeNo);
+    noBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        dodgeNo();
     });
 
-    // YES button proceeds
+    // YES button - proceed to next page
     yesBtn.addEventListener('click', function () {
-        if (typeof goToPage === 'function') {
-            goToPage('page2');
-        }
-        if (typeof playMusic === 'function') {
-            playMusic();
-        }
+        // Create heart explosion effect
+        createHeartExplosion(yesBtn);
+
+        setTimeout(function () {
+            if (typeof goToPage === 'function') {
+                goToPage('page2');
+            }
+            if (typeof playMusic === 'function') {
+                playMusic();
+            }
+        }, 800);
     });
 }
 
-function setupGifts() {
-    // Track gifts opened
-    let opened = 0;
+// ==========================================
+// 4TH GIFT BOX
+// ==========================================
+function setup4thGift() {
+    var originalOpen = window.openGift;
 
-    // Override original openGift if it exists
-    const origOpen = window.openGift;
-    window.openGift = function (box) {
-        const num = box.dataset.gift;
+    window.openGift = function (giftBox) {
+        var giftNum = giftBox.dataset.gift;
 
-        // Don't open locked gift 4
-        if (num === '4' && box.classList.contains('locked')) {
+        // Don't open locked gift
+        if (giftNum === '4' && giftBox.classList.contains('locked')) {
             return;
         }
 
-        opened++;
+        giftsOpenedCount++;
 
         // Call original function if exists
-        if (origOpen) {
-            origOpen(box);
+        if (originalOpen && typeof originalOpen === 'function') {
+            originalOpen.call(this, giftBox);
         } else {
+            // Fallback
             if (typeof goToPage === 'function') {
-                goToPage('gift' + num);
+                goToPage('gift' + giftNum);
             }
         }
 
-        // Unlock gift 4 after opening 3
-        if (opened === 3) {
-            const gift4 = document.querySelector('[data-gift="4"]');
+        // Unlock 4th gift after opening 3
+        if (giftsOpenedCount === 3) {
+            var gift4 = document.querySelector('[data-gift="4"]');
             if (gift4) {
                 gift4.classList.remove('locked');
-                const lock = gift4.querySelector('.lock-icon');
+                var lock = gift4.querySelector('.lock-icon');
                 if (lock) lock.remove();
             }
         }
     };
 }
 
+// ==========================================
+// HIDDEN HEART
+// ==========================================
 function setupHiddenHeart() {
-    const hidden = document.getElementById('hiddenHeart');
-    const popup = document.getElementById('reasonsPopup');
-    const closeBtn = document.getElementById('closeReasonsBtn');
+    var hiddenHeart = document.getElementById('hiddenHeart');
+    var popup = document.getElementById('reasonsPopup');
+    var closeBtn = document.getElementById('closeReasonsBtn');
 
-    if (hidden && popup) {
-        hidden.addEventListener('click', function () {
+    if (hiddenHeart && popup) {
+        hiddenHeart.addEventListener('click', function () {
             popup.classList.add('show');
+            popup.style.transform = 'translate(-50%, -50%) scale(1)';
         });
     }
 
     if (closeBtn && popup) {
         closeBtn.addEventListener('click', function () {
             popup.classList.remove('show');
+            popup.style.transform = 'translate(-50%, -50%) scale(0)';
         });
     }
 }
 
-console.log('✅ Enhancements loaded (simplified)');
+// ==========================================
+// HUG BUTTON
+// ==========================================
+function setupHugButton() {
+    var hugBtn = document.getElementById('hugBtn');
+    var finalMsg = document.getElementById('finalGlowMsg');
+
+    if (!hugBtn) return;
+
+    // Show hug button after final messages
+    setTimeout(function () {
+        hugBtn.classList.remove('hidden');
+    }, 8000);
+
+    hugBtn.addEventListener('click', function () {
+        // Fill screen with hearts
+        fillScreenWithHearts();
+
+        hugBtn.style.display = 'none';
+
+        if (finalMsg) {
+            setTimeout(function () {
+                finalMsg.classList.remove('hidden');
+            }, 1500);
+        }
+    });
+}
+
+function fillScreenWithHearts() {
+    var container = document.getElementById('heartsFill');
+    if (!container) return;
+
+    var hearts = ['❤️', '💕', '💖', '💗', '💝', '💓'];
+
+    for (var i = 0; i < 50; i++) {
+        (function (index) {
+            setTimeout(function () {
+                var heart = document.createElement('div');
+                heart.className = 'fill-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                container.appendChild(heart);
+            }, index * 50);
+        })(i);
+    }
+}
+
+// ==========================================
+// HELPER FUNCTIONS
+// ==========================================
+
+function createHeartExplosion(element) {
+    if (!element) return;
+
+    var rect = element.getBoundingClientRect();
+    var hearts = ['❤️', '💕', '💖', '💗', '💝'];
+
+    for (var i = 0; i < 12; i++) {
+        (function (index) {
+            var particle = document.createElement('div');
+            particle.className = 'heart-particle';
+            particle.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            particle.style.left = (rect.left + rect.width / 2) + 'px';
+            particle.style.top = (rect.top + rect.height / 2) + 'px';
+
+            var angle = (Math.PI * 2 * index) / 12;
+            var distance = 80 + Math.random() * 80;
+            var tx = Math.cos(angle) * distance;
+            var ty = Math.sin(angle) * distance;
+
+            particle.style.setProperty('--tx', tx + 'px');
+            particle.style.setProperty('--ty', ty + 'px');
+
+            document.body.appendChild(particle);
+
+            setTimeout(function () {
+                if (particle && particle.parentNode) {
+                    particle.remove();
+                }
+            }, 1000);
+        })(i);
+    }
+}
+
+console.log('✅ Enhancements loaded successfully');
