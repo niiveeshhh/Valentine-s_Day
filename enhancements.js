@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 function initializeEnhancements() {
     setupMusicToggle();
-    setupYesNoChoice();
+    // setupYesNoChoice(); // DISABLED - Restore original button
     setupGoldenHeart();
     setup4thGift();
     setupHiddenHeart();
