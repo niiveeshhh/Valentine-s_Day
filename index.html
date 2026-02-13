@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day My Love ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="assets/music/romantic.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Floating Hearts Background -->
+    <div class="hearts-background" id="heartsBackground"></div>
+
+    <!-- Page 1: Welcome Page -->
+    <section class="page active" id="page1">
+        <div class="content-center">
+            <h1 class="typing-text" id="welcomeText"></h1>
+            <button class="romantic-btn hidden" id="page1Btn">Click here 💕</button>
+        </div>
+    </section>
+
+    <!-- Page 2: Valentine's Wish -->
+    <section class="page" id="page2">
+        <div class="content-center">
+            <div class="message-box">
+                <p class="romantic-message fade-in-text">You are the most beautiful part of my life.</p>
+                <p class="romantic-message fade-in-text delay-1">Thank you for being mine.</p>
+                <p class="romantic-message fade-in-text delay-2">I love you more than words can ever express ❤️</p>
+            </div>
+            <button class="romantic-btn" id="page2Btn">Play a small game 💕</button>
+        </div>
+    </section>
+
+    <!-- Page 3: Heart Pop Game -->
+    <section class="page" id="page3">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>Pop the hearts! 💖</h2>
+                <div class="score-display">
+                    <span>Score: <span id="score">0</span> / 10</span>
+                </div>
+            </div>
+            <div class="game-area" id="gameArea"></div>
+            <div class="game-complete hidden" id="gameComplete">
+                <h2 class="glow-text">You unlocked something special 💖</h2>
+                <button class="romantic-btn" id="page3Btn">Open your gifts 🎁</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 4: Gift Selection -->
+    <section class="page" id="page4">
+        <div class="content-center">
+            <h2 class="page-title">Choose your gifts, my love 💝</h2>
+            <div class="gifts-container">
+                <div class="gift-box" data-gift="1">
+                    <div class="gift-icon">🎁</div>
+                    <h3>I</h3>
+                    <div class="gift-glow"></div>
+                </div>
+                <div class="gift-box" data-gift="2">
+                    <div class="gift-icon">🎁</div>
+                    <h3>Love</h3>
+                    <div class="gift-glow"></div>
+                </div>
+                <div class="gift-box" data-gift="3">
+                    <div class="gift-icon">🎁</div>
+                    <h3>You</h3>
+                    <div class="gift-glow"></div>
+                </div>
+            </div>
+            <button class="romantic-btn hidden" id="allGiftsBtn">Continue to surprise 💖</button>
+        </div>
+    </section>
+
+    <!-- Page 5: Gift 1 - Her Photos -->
+    <section class="page gift-page" id="gift1">
+        <div class="gallery-container">
+            <button class="back-btn" onclick="goToPage('page4')">← Back to Gifts</button>
+            <h2 class="gallery-title">You ✨</h2>
+            <div class="photo-gallery" id="herPhotos">
+                <!-- Placeholder images - replace with actual photos -->
+                <div class="photo-item">
+                    <img src="assets/photos/her/photo1.jpg" alt="Beautiful You">
+                    <p class="photo-caption">Your smile lights up my world</p>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/photos/her/photo2.jpg" alt="Beautiful You">
+                    <p class="photo-caption">Every moment with you is precious</p>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/photos/her/photo3.jpg" alt="Beautiful You">
+                    <p class="photo-caption">You are my everything</p>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/photos/her/photo4.jpg" alt="Beautiful You">
+                    <p class="photo-caption">My beautiful love</p>
+                </div>
+                <!-- Add more photos as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 6: Gift 2 - Our Photos -->
+    <section class="page gift-page" id="gift2">
+        <div class="gallery-container">
+            <button class="back-btn" onclick="goToPage('page4')">← Back to Gifts</button>
+            <h2 class="gallery-title">Us Together 💑</h2>
+            <div class="photo-gallery" id="ourPhotos">
+                <!-- Placeholder images - replace with actual photos -->
+                <div class="photo-item">
+                    <img src="assets/photos/us/photo1.jpg" alt="Us Together">
+                    <p class="photo-caption">Our first adventure together</p>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/photos/us/photo2.jpg" alt="Us Together">
+                    <p class="photo-caption">Creating beautiful memories</p>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/photos/us/photo3.jpg" alt="Us Together">
+                    <p class="photo-caption">Forever in my heart</p>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/photos/us/photo4.jpg" alt="Us Together">
+                    <p class="photo-caption">My favorite moments</p>
+                </div>
+                <!-- Add more photos as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 7: Gift 3 - Videos -->
+    <section class="page gift-page" id="gift3">
+        <div class="gallery-container">
+            <button class="back-btn" onclick="goToPage('page4')">← Back to Gifts</button>
+            <h2 class="gallery-title">Our Memories 🎥</h2>
+            <div class="video-gallery" id="ourVideos">
+                <!-- Placeholder videos - replace with actual videos -->
+                <div class="video-item">
+                    <video controls>
+                        <source src="assets/videos/video1.mp4" type="video/mp4">
+                    </video>
+                    <p class="video-caption">Our special moments</p>
+                </div>
+                <div class="video-item">
+                    <video controls>
+                        <source src="assets/videos/video2.mp4" type="video/mp4">
+                    </video>
+                    <p class="video-caption">Memories together</p>
+                </div>
+                <!-- Add more videos as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 8: Final Surprise -->
+    <section class="page" id="page5">
+        <div class="content-center">
+            <h2 class="surprise-title glow-text">One last surprise for you… 💝</h2>
+            <button class="romantic-btn pulse" id="page5Btn">Open it ❤️</button>
+        </div>
+    </section>
+
+    <!-- Page 9: Love Letter -->
+    <section class="page" id="page6">
+        <div class="letter-container">
+            <div class="letter-paper">
+                <h2 class="letter-title">To My Dearest Love,</h2>
+                <div class="letter-content" id="letterContent">
+                    <p>My Beautiful Jaan,</p>
+                    <p>As I sit here thinking about you, my heart fills with so much love that words seem inadequate to express what I truly feel. You are not just my partner, you are my soulmate, my best friend, and the love of my life.</p>
+                    <p>From the moment you came into my life, everything changed. You brought light into my darkest days, hope when I felt lost, and joy in every single moment we share together. Your smile has the power to make my entire world brighter, and your laughter is the sweetest melody I've ever heard.</p>
+                    <p>I love the way you care for me, the way you understand me even when I don't say a word. I love your kindness, your strength, and the beautiful soul that you are. Every day with you is a blessing, and I thank the universe for bringing you into my life.</p>
+                    <p>I promise to love you endlessly, to support you in every dream, to hold your hand through every challenge, and to cherish every moment we have together. You are my forever, my always, and my everything.</p>
+                    <p>Happy Valentine's Day, my love. Thank you for being mine.</p>
+                    <p class="letter-signature">Forever yours,<br>Your Love ❤️</p>
+                </div>
+                <button class="romantic-btn" id="page6Btn">Continue 💕</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 10: Final Page -->
+    <section class="page" id="page7">
+        <div class="content-center">
+            <div class="final-message">
+                <h2 class="glow-text fade-in-text">No matter what happens…</h2>
+                <h2 class="glow-text fade-in-text delay-1">You will always be my forever ❤️</h2>
+                <h2 class="glow-text fade-in-text delay-2">I love you endlessly.</h2>
+            </div>
+            <button class="romantic-btn" id="replayBtn">Replay Memories 💖</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

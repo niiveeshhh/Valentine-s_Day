@@ -1,0 +1,11 @@
+# Background Music
+
+Place your romantic background music here.
+Name it: romantic.mp3
+
+Recommended:
+- Format: .mp3
+- Duration: 2-5 minutes (it will loop)
+- Volume will be set to 30% automatically
+
+Choose a soft, romantic instrumental or a meaningful song!

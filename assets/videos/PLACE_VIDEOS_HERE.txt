@@ -1,0 +1,11 @@
+# Video Placeholders
+
+Place your video files here with names like:
+- video1.mp4
+- video2.mp4
+- video3.mp4
+
+Recommended format: .mp4
+Keep videos under 50MB for smooth playback
+
+Make sure to update the corresponding section in index.html with your custom captions!

@@ -1,0 +1,11 @@
+# Photo Placeholders
+
+Place her photos here with names like:
+- photo1.jpg
+- photo2.jpg
+- photo3.jpg
+- photo4.jpg
+
+Supported formats: .jpg, .jpeg, .png, .gif
+
+Make sure to update the corresponding section in index.html with your custom captions!
