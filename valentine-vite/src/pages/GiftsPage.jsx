@@ -52,7 +52,7 @@ function GiftsPage({ giftsOpened, onOpenGift, onNext, onGiftPageNavigate }) {
 
                     {/* Gift 4 - Locked */}
                     <div
-                        onClick={() => gift4Unlocked && handleGiftClick('4', 5)}
+                        onClick={() => gift4Unlocked && handleGiftClick('4', 8)}
                         className={`bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 text-center ${gift4Unlocked ? 'cursor-pointer hover:scale-105 active:scale-95' : 'opacity-50 cursor-not-allowed'} transition-transform duration-300 shadow-xl ${giftsOpened.has('4') ? 'ring-4 ring-romantic-rose' : ''}`}
                     >
                         {!gift4Unlocked && <div className="text-5xl sm:text-6xl mb-3 sm:mb-4">🔒</div>}

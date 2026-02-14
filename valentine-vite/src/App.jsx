@@ -9,6 +9,8 @@ import GiftsPage from './pages/GiftsPage';
 import PhotoGallery from './pages/PhotoGallery';
 import VideoGallery from './pages/VideoGallery';
 import VideoGallery2 from './pages/VideoGallery2';
+import HugPage from './pages/HugPage';
+import PuzzlePage from './pages/PuzzlePage';
 import LoveLetterPage from './pages/LoveLetterPage';
 import FinalPage from './pages/FinalPage';
 
@@ -61,12 +63,14 @@ function App() {
             {currentPage === 1 && <WelcomePage onNext={() => goToPage(2)} onStartMusic={startMusic} />}
             {currentPage === 2 && <WishPage onNext={() => goToPage(3)} />}
             {currentPage === 3 && <GamePage score={score} setScore={setScore} onNext={() => goToPage(4)} />}
-            {currentPage === 4 && <GiftsPage giftsOpened={giftsOpened} onOpenGift={openGift} onNext={() => goToPage(8)} onGiftPageNavigate={goToPage} />}
+            {currentPage === 4 && <GiftsPage giftsOpened={giftsOpened} onOpenGift={openGift} onNext={() => goToPage(9)} onGiftPageNavigate={goToPage} />}
             {currentPage === 5 && <PhotoGallery onBack={() => goToPage(4)} />}
             {currentPage === 6 && <VideoGallery onBack={() => goToPage(4)} />}
             {currentPage === 7 && <VideoGallery2 onBack={() => goToPage(4)} />}
-            {currentPage === 8 && <LoveLetterPage onNext={() => goToPage(9)} />}
-            {currentPage === 9 && <FinalPage />}
+            {currentPage === 8 && <HugPage onBack={() => goToPage(4)} />}
+            {currentPage === 9 && <PuzzlePage onNext={() => goToPage(10)} />}
+            {currentPage === 10 && <LoveLetterPage onNext={() => goToPage(11)} />}
+            {currentPage === 11 && <FinalPage />}
         </div>
     );
 }
