@@ -1,60 +1,62 @@
 /* ================================================
-   RESPONSIVE DESIGN - MEDIA QUERIES
+   RESPONSIVE DESIGN - OPTIMIZED FOR ALL DEVICES
+   Desktop-first approach: Desktop styles are default,
+   smaller devices get adjusted layouts
    ================================================ */
 
 /* ================================================
-   MOBILE DEVICES (320px - 480px)
+   SMALL MOBILE DEVICES (up to 480px)
    ================================================ */
 @media only screen and (max-width: 480px) {
-    body {
-        font-size: 14px;
-    }
 
-    /* Typography */
+    /* Typography adjustments */
     h1 {
-        font-size: 2rem !important;
+        font-size: 2rem;
         line-height: 1.3;
     }
 
     h2 {
-        font-size: 1.5rem !important;
+        font-size: 1.5rem;
     }
 
     h3 {
-        font-size: 1.2rem !important;
+        font-size: 1.2rem;
     }
 
-    p {
-        font-size: 0.95rem !important;
+    p,
+    .letter-text {
+        font-size: 0.95rem;
         line-height: 1.6;
     }
 
-    /* Buttons */
+    /* Buttons - mobile friendly */
     .romantic-btn,
     .choice-btn {
-        font-size: 1rem !important;
-        padding: 12px 24px !important;
+        font-size: 1rem;
+        padding: 12px 24px;
         min-width: 140px;
+        min-height: 44px;
+        /* Touch-friendly */
     }
 
     .back-btn {
-        font-size: 0.9rem !important;
-        padding: 8px 16px !important;
+        font-size: 0.9rem;
+        padding: 10px 18px;
     }
 
-    /* Floating Hearts - Reduce on mobile */
-    .floating-heart {
-        font-size: 16px !important;
+    /* Content spacing */
+    .content-center {
+        padding: 20px 15px;
     }
 
-    /* Welcome Text */
+    /* Typing text */
     .typing-text {
-        font-size: 1.8rem !important;
+        font-size: 1.8rem;
         padding: 0 20px;
         text-align: center;
     }
 
-    /* Choice Container */
+    /* Choice buttons - stack vertically */
     .choice-container {
         flex-direction: column;
         gap: 15px;
@@ -67,20 +69,20 @@
         max-width: 250px;
     }
 
-    /* Game Container */
+    /* Game area - smaller */
     .game-container {
         padding: 20px 15px;
     }
 
     #gameArea {
-        height: 400px !important;
+        height: 400px;
         max-height: 60vh;
     }
 
     .game-heart {
-        font-size: 40px !important;
-        width: 50px !important;
-        height: 50px !important;
+        font-size: 40px;
+        width: 50px;
+        height: 50px;
     }
 
     .game-info {
@@ -89,205 +91,156 @@
         text-align: center;
     }
 
-    /* Gift Boxes */
+    /* Gift boxes - single column */
     .gifts-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
         gap: 20px;
         padding: 0 20px;
     }
 
     .gift-box {
-        padding: 30px 20px !important;
+        padding: 30px 20px;
         min-height: 180px;
     }
 
     .gift-icon {
-        font-size: 3rem !important;
+        font-size: 3rem;
     }
 
-    /* Gallery */
+    /* Gallery - single column */
     .gallery-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
         gap: 15px;
         padding: 0 15px;
     }
 
     .gallery-item {
-        height: 250px !important;
+        height: 250px;
     }
 
-    .gallery-item img,
-    .gallery-item video {
-        max-height: 250px;
-    }
-
-    /* Video Gallery */
+    /* Video gallery - single column */
     .video-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
         gap: 15px;
     }
 
-    .video-item {
-        height: auto !important;
-    }
-
     .video-item video {
-        height: auto;
         max-height: 300px;
     }
 
-    /* Love Letter */
+    /* Love letter - smaller */
     .letter-container {
-        padding: 20px !important;
-        margin: 20px !important;
-        max-width: 90% !important;
+        padding: 20px;
+        margin: 20px;
+        max-width: 90%;
     }
 
-    .letter-text {
-        font-size: 1rem !important;
-        line-height: 1.8;
-    }
-
-    /* Final Messages */
+    /* Final messages */
     .final-message {
-        font-size: 1.3rem !important;
+        font-size: 1.3rem;
         padding: 0 20px;
     }
 
-    /* Music Toggle */
+    /* UI elements */
     .music-toggle {
-        bottom: 15px !important;
-        right: 15px !important;
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 1.5rem !important;
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
     }
 
-    /* Hidden Heart */
     .hidden-heart {
-        font-size: 1.5rem !important;
-        width: 40px !important;
-        height: 40px !important;
+        font-size: 1.5rem;
+        width: 40px;
+        height: 40px;
     }
 
-    /* Reasons Popup */
-    .reasons-popup {
-        width: 90% !important;
-        max-width: 350px !important;
-        padding: 25px !important;
+    /* Popups */
+    .reasons-popup,
+    .bonus-popup {
+        width: 90%;
+        max-width: 350px;
+        padding: 25px;
     }
 
     .reasons-list li {
-        font-size: 0.95rem !important;
-        padding: 10px !important;
+        font-size: 0.95rem;
+        padding: 10px;
     }
 
-    /* Bonus Popup */
-    .bonus-popup {
-        width: 90% !important;
-        max-width: 350px !important;
-        padding: 25px !important;
-    }
-
-    /* Loading Screen */
+    /* Loading screen */
     .loading-text {
-        font-size: 1.3rem !important;
+        font-size: 1.3rem;
         padding: 0 20px;
     }
 
     .loading-heart {
-        font-size: 2rem !important;
+        font-size: 2rem;
     }
 }
 
 /* ================================================
-   MOBILE LANDSCAPE & SMALL TABLETS (481px - 768px)
+   MOBILE LANDSCAPE & PHABLETS (481px - 767px)
    ================================================ */
-@media only screen and (min-width: 481px) and (max-width: 768px) {
-    body {
-        font-size: 15px;
-    }
-
+@media only screen and (min-width: 481px) and (max-width: 767px) {
     h1 {
-        font-size: 2.5rem !important;
+        font-size: 2.5rem;
     }
 
     h2 {
-        font-size: 1.8rem !important;
+        font-size: 1.8rem;
     }
 
-    .romantic-btn,
-    .choice-btn {
-        font-size: 1.1rem !important;
-        padding: 14px 28px !important;
-    }
-
-    /* Gifts Grid - 2 columns */
+    /* Gifts - 2 columns */
     .gifts-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
         padding: 0 30px;
     }
 
     /* Gallery - 2 columns */
     .gallery-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
 
     .gallery-item {
-        height: 280px !important;
+        height: 280px;
     }
 
-    /* Video Grid */
+    /* Videos - 2 columns */
     .video-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
 
-    /* Game Area */
+    /* Game */
     #gameArea {
-        height: 450px !important;
+        height: 450px;
     }
 
     .game-heart {
-        font-size: 50px !important;
-        width: 60px !important;
-        height: 60px !important;
+        font-size: 50px;
+        width: 60px;
+        height: 60px;
     }
 
     /* Letter */
     .letter-container {
-        padding: 30px !important;
-        max-width: 85% !important;
-    }
-
-    .letter-text {
-        font-size: 1.1rem !important;
-    }
-
-    /* Choice Container */
-    .choice-container {
-        flex-direction: row;
-        gap: 20px;
+        padding: 30px;
+        max-width: 85%;
     }
 }
 
 /* ================================================
-   TABLETS (769px - 1024px)
+   TABLETS (768px - 1024px)
    ================================================ */
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-    h1 {
-        font-size: 3rem !important;
-    }
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
 
-    h2 {
-        font-size: 2rem !important;
-    }
-
-    /* Gifts Grid - 2 columns */
+    /* Gifts - 2 columns, centered */
     .gifts-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
         max-width: 800px;
         margin: 0 auto;
@@ -295,109 +248,37 @@
 
     /* Gallery - 3 columns */
     .gallery-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
     }
 
     .gallery-item {
-        height: 300px !important;
+        height: 300px;
     }
 
-    /* Video Grid */
+    /* Videos - 2 columns */
     .video-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
         max-width: 800px;
         margin: 0 auto;
     }
 
-    /* Game Area */
+    /* Game */
     #gameArea {
-        height: 500px !important;
+        height: 500px;
         max-width: 700px;
         margin: 0 auto;
     }
 
     /* Letter */
     .letter-container {
-        max-width: 650px !important;
+        max-width: 650px;
     }
 }
 
 /* ================================================
-   LARGE DESKTOPS (1025px - 1440px)
-   ================================================ */
-@media only screen and (min-width: 1025px) and (max-width: 1440px) {
-    .gifts-grid {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .gallery-grid {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    #gameArea {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-}
-
-/* ================================================
-   EXTRA LARGE SCREENS (1441px+)
-   ================================================ */
-@media only screen and (min-width: 1441px) {
-    .page {
-        max-width: 1600px;
-        margin: 0 auto;
-    }
-
-    .gifts-grid {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .gallery-grid {
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-}
-
-/* ================================================
-   TOUCH DEVICE OPTIMIZATIONS
-   ================================================ */
-@media (hover: none) and (pointer: coarse) {
-
-    /* Increase touch targets */
-    .romantic-btn,
-    .choice-btn,
-    .gift-box,
-    .back-btn {
-        min-height: 44px;
-        min-width: 44px;
-    }
-
-    /* Remove hover effects on touch devices */
-    .romantic-btn:hover,
-    .choice-btn:hover,
-    .gift-box:hover {
-        transform: scale(1);
-    }
-
-    /* Add active states instead */
-    .romantic-btn:active,
-    .choice-btn:active {
-        transform: scale(0.95);
-    }
-
-    .gift-box:active {
-        transform: translateY(2px);
-    }
-}
-
-/* ================================================
-   LANDSCAPE MOBILE ORIENTATION
+   LANDSCAPE MOBILE (short screens)
    ================================================ */
 @media only screen and (max-height: 500px) and (orientation: landscape) {
     body {
@@ -415,54 +296,50 @@
     }
 
     #gameArea {
-        height: 350px !important;
+        height: 350px;
     }
 
     .gifts-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
+        grid-template-columns: repeat(4, 1fr);
         gap: 15px;
     }
 
     .gift-box {
-        padding: 20px 15px !important;
+        padding: 20px 15px;
         min-height: 140px;
     }
-
-    .loading-screen {
-        overflow-y: auto;
-    }
 }
 
 /* ================================================
-   PRINT STYLES (for printing love letters)
+   TOUCH DEVICE OPTIMIZATIONS
    ================================================ */
-@media print {
-    body {
-        background: white;
-        color: black;
-    }
+@media (hover: none) and (pointer: coarse) {
 
-    .music-toggle,
-    .back-btn,
+    /* Ensure touch targets are large enough */
     .romantic-btn,
-    .hearts-background,
-    .floating-heart {
-        display: none !important;
+    .choice-btn,
+    .gift-box,
+    .back-btn,
+    .gallery-item,
+    .video-item {
+        min-height: 44px;
+        min-width: 44px;
     }
 
-    .page {
-        page-break-after: always;
+    /* Better active states for touch */
+    .romantic-btn:active,
+    .choice-btn:active {
+        transform: scale(0.95);
+        opacity: 0.8;
     }
 
-    .letter-container {
-        background: white;
-        box-shadow: none;
-        border: 1px solid #ccc;
+    .gift-box:active {
+        transform: translateY(2px) scale(0.98);
     }
 }
 
 /* ================================================
-   REDUCED MOTION (Accessibility)
+   ACCESSIBILITY - Reduced Motion
    ================================================ */
 @media (prefers-reduced-motion: reduce) {
 
@@ -476,12 +353,12 @@
 
     .floating-heart {
         animation: none;
-        display: none;
+        opacity: 0.3;
     }
 }
 
 /* ================================================
-   HIGH CONTRAST MODE (Accessibility)
+   ACCESSIBILITY - High Contrast
    ================================================ */
 @media (prefers-contrast: high) {
     body {
@@ -496,5 +373,34 @@
 
     .gift-box {
         border: 2px solid var(--gold);
+    }
+}
+
+/* ================================================
+   PRINT STYLES
+   ================================================ */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .music-toggle,
+    .back-btn,
+    .romantic-btn,
+    .hearts-background,
+    .floating-heart,
+    .hidden-heart {
+        display: none !important;
+    }
+
+    .page {
+        page-break-after: always;
+    }
+
+    .letter-container {
+        background: white;
+        box-shadow: none;
+        border: 1px solid #ccc;
     }
 }
