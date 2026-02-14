@@ -1,8 +1,6 @@
 function VideoGallery2({ onBack }) {
-    const videos = Array.from({ length: 6 }, (_, i) => i + 8); // Videos 8-13
-
     return (
-        <div className="min-h-screen relative z-10 px-4 py-8">
+        <div className="min-h-screen relative z-10 px-4 py-8 flex flex-col items-center justify-center">
             <button
                 onClick={onBack}
                 className="mb-6 px-6 py-3 bg-romantic-rose text-white rounded-full font-semibold hover:scale-105 transition-transform duration-300 shadow-lg"
@@ -10,22 +8,15 @@ function VideoGallery2({ onBack }) {
                 ← Back to Gifts
             </button>
 
-            <h2 className="text-4xl md:text-5xl font-playfair text-romantic-red text-center mb-10">
-                More Beautiful Moments 💫
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {videos.map(num => (
-                    <div key={num} className="rounded-2xl overflow-hidden shadow-xl">
-                        <video
-                            controls
-                            className="w-full h-auto"
-                        >
-                            <source src={`/videos/${num}.mp4`} type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                ))}
+            <div className="text-center max-w-2xl">
+                <h2 className="text-4xl md:text-5xl font-playfair text-romantic-red mb-6">
+                    All Videos in First Gallery! 💕
+                </h2>
+                <p className="text-xl text-gray-700 mb-8">
+                    All our special moments are in the first video gallery.
+                    Go back and check them out! 🎥✨
+                </p>
+                <div className="text-6xl mb-4">💖</div>
             </div>
         </div>
     );

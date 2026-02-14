@@ -1,5 +1,5 @@
 function VideoGallery({ onBack }) {
-    const videos = Array.from({ length: 7 }, (_, i) => i + 1);
+    const videos = Array.from({ length: 4 }, (_, i) => i + 1);
 
     return (
         <div className="min-h-screen relative z-10 px-4 py-8">
