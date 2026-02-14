@@ -1,6 +1,21 @@
+import { useEffect, useRef } from 'react';
+
 function GiftsPage({ giftsOpened, onOpenGift, onNext, onGiftPageNavigate }) {
     const gift4Unlocked = giftsOpened.size >= 3;
     const allGiftsOpened = giftsOpened.size >= 4;
+    const buttonRef = useRef(null);
+
+    // Scroll to button when all gifts are opened
+    useEffect(() => {
+        if (allGiftsOpened && buttonRef.current) {
+            setTimeout(() => {
+                buttonRef.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 500);
+        }
+    }, [allGiftsOpened]);
 
     const handleGiftClick = (giftNum, targetPage) => {
         if (giftNum === '4' && !gift4Unlocked) return;
@@ -10,8 +25,8 @@ function GiftsPage({ giftsOpened, onOpenGift, onNext, onGiftPageNavigate }) {
     };
 
     return (
-        <div className="min-h-screen relative z-10 px-4 py-6 sm:py-8 md:py-12">
-            <div className="w-full max-w-6xl mx-auto">
+        <div className="min-h-screen relative z-10 px-4 py-6 sm:py-8 md:py-12 overflow-y-auto">
+            <div className="w-full max-w-6xl mx-auto pb-20">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair text-romantic-red text-center mb-3 sm:mb-4">
                     Choose Your Gifts 🎁
                 </h2>
@@ -19,7 +34,7 @@ function GiftsPage({ giftsOpened, onOpenGift, onNext, onGiftPageNavigate }) {
                     Click on each gift to see what's inside!
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
                     {/* Gift 1 - Photos */}
                     <div
                         onClick={() => handleGiftClick('1', 5)}
@@ -63,12 +78,20 @@ function GiftsPage({ giftsOpened, onOpenGift, onNext, onGiftPageNavigate }) {
                 </div>
 
                 {allGiftsOpened && (
-                    <div className="text-center pb-6">
+                    <div ref={buttonRef} className="text-center mt-8 sm:mt-12 mb-12">
+                        <div className="mb-6">
+                            <p className="text-2xl sm:text-3xl font-dancing text-romantic-rose animate-pulse">
+                                All gifts opened! 🎉
+                            </p>
+                            <p className="text-lg sm:text-xl text-gray-700 mt-2">
+                                Ready for your next surprise?
+                            </p>
+                        </div>
                         <button
                             onClick={onNext}
-                            className="px-8 sm:px-10 py-4 bg-gradient-to-r from-romantic-rose to-romantic-red text-white text-lg sm:text-xl rounded-full font-semibold hover:scale-105 active:scale-95 transition-transform duration-300 shadow-xl animate-pulse min-h-[56px] w-full max-w-sm"
+                            className="px-8 sm:px-10 py-4 bg-gradient-to-r from-romantic-rose to-romantic-red text-white text-lg sm:text-xl rounded-full font-semibold hover:scale-105 active:scale-95 transition-all duration-300 shadow-2xl animate-bounce min-h-[56px] w-full max-w-sm mx-auto block"
                         >
-                            Continue to surprise 💖
+                            Continue to Puzzle 💖
                         </button>
                     </div>
                 )}
