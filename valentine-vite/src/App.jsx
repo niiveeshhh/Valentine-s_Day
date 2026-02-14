@@ -55,7 +55,7 @@ function App() {
     };
 
     return (
-        <div className="relative min-h-screen bg-gradient-to-br from-romantic-light via-white to-romantic-pink">
+        <div className="relative w-full overflow-x-hidden bg-gradient-to-br from-romantic-light via-white to-romantic-pink">
             {showLoading && <LoadingScreen onComplete={() => setShowLoading(false)} />}
             <FloatingHearts />
             <MusicToggle isPlaying={musicPlaying} onToggle={toggleMusic} />

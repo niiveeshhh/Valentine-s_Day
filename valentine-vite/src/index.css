@@ -80,10 +80,18 @@
 }
 
 /* Global Styles */
+html {
+    scroll-behavior: smooth;
+    overflow-y: auto;
+    height: 100%;
+}
+
 body {
     margin: 0;
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
     overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100%;
 }
 
 * {
