@@ -60,12 +60,12 @@ function GamePage({ score, setScore, onNext }) {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center relative z-10 px-4 py-8">
-            <div className="w-full max-w-4xl bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl">
-                <h2 className="text-4xl md:text-5xl font-playfair text-romantic-red text-center mb-4">
+        <div className="min-h-screen flex items-center justify-center relative z-10 px-4 py-4 sm:py-8">
+            <div className="w-full max-w-4xl bg-white/90 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair text-romantic-red text-center mb-3 sm:mb-4">
                     Pop the Hearts! 💕
                 </h2>
-                <p className="text-center text-xl text-gray-700 mb-6">
+                <p className="text-center text-lg sm:text-xl text-gray-700 mb-4 sm:mb-6">
                     Pop {targetScore} hearts to continue!
                 </p>
 
@@ -86,22 +86,27 @@ function GamePage({ score, setScore, onNext }) {
                     </div>
                 ) : (
                     <>
-                        <div className="flex justify-between items-center mb-6 text-xl font-semibold">
+                        <div className="flex justify-between items-center mb-4 sm:mb-6 text-lg sm:text-xl font-semibold">
                             <div className="text-romantic-red">Score: {score}</div>
                             <div className="text-romantic-rose">Time: {timeLeft}s</div>
                         </div>
 
                         <div
-                            className="relative w-full h-96 md:h-[500px] rounded-2xl bg-cover bg-center overflow-hidden shadow-inner"
+                            className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-xl sm:rounded-2xl bg-cover bg-center overflow-hidden shadow-inner"
                             style={{ backgroundImage: 'url(/rose.jpg)' }}
                         >
                             {hearts.map(heart => (
                                 <div
                                     key={heart.id}
-                                    className="absolute cursor-pointer text-5xl hover:scale-125 transition-transform"
+                                    className="absolute cursor-pointer text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-110 transition-transform touch-manipulation"
                                     style={{
                                         left: `${heart.x}%`,
                                         top: `${heart.y}%`,
+                                        minWidth: '44px',
+                                        minHeight: '44px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
                                     }}
                                     onClick={() => popHeart(heart.id, heart.isGolden)}
                                 >
@@ -113,7 +118,7 @@ function GamePage({ score, setScore, onNext }) {
                         {(score >= targetScore || gameEnded) && (
                             <button
                                 onClick={onNext}
-                                className="mt-6 mx-auto block px-10 py-4 bg-gradient-to-r from-romantic-rose to-romantic-red text-white text-xl rounded-full font-semibold hover:scale-105 transition-transform duration-300 shadow-xl animate-pulse"
+                                className="mt-4 sm:mt-6 mx-auto block px-8 sm:px-10 py-4 bg-gradient-to-r from-romantic-rose to-romantic-red text-white text-lg sm:text-xl rounded-full font-semibold hover:scale-105 active:scale-95 transition-transform duration-300 shadow-xl animate-pulse min-h-[48px] w-full max-w-xs"
                             >
                                 Continue 💖
                             </button>
