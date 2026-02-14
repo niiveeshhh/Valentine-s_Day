@@ -1,5 +1,5 @@
 function PhotoGallery({ onBack }) {
-    const photos = Array.from({ length: 26 }, (_, i) => i + 1);
+    const photos = Array.from({ length: 18 }, (_, i) => i + 1);
 
     return (
         <div className="min-h-screen relative z-10 px-4 py-6 sm:py-8">
