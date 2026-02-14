@@ -158,6 +158,11 @@ function setupYesNoChoice() {
 // 4TH GIFT BOX
 // ==========================================
 function setup4thGift() {
+    // Initialize global giftsOpened Set if not exists
+    if (!window.giftsOpened) {
+        window.giftsOpened = new Set();
+    }
+
     var originalOpen = window.openGift;
 
     window.openGift = function (giftBox) {
@@ -168,26 +173,46 @@ function setup4thGift() {
             return;
         }
 
-        giftsOpenedCount++;
+        // Track this gift as opened
+        window.giftsOpened.add(giftNum);
+
+        // Mark box as opened
+        giftBox.classList.add('opened');
 
         // Call original function if exists
         if (originalOpen && typeof originalOpen === 'function') {
             originalOpen.call(this, giftBox);
         } else {
-            // Fallback
+            // Fallback - navigate to gift page
             if (typeof goToPage === 'function') {
                 goToPage('gift' + giftNum);
             }
         }
 
-        // Unlock 4th gift after opening 3
-        if (giftsOpenedCount === 3) {
-            var gift4 = document.querySelector('[data-gift="4"]');
-            if (gift4) {
-                gift4.classList.remove('locked');
-                var lock = gift4.querySelector('.lock-icon');
-                if (lock) lock.remove();
-            }
+        // Unlock 4th gift after opening first 3
+        if (window.giftsOpened.size === 3 && !window.giftsOpened.has('4')) {
+            setTimeout(function () {
+                var gift4 = document.querySelector('[data-gift="4"]');
+                if (gift4) {
+                    gift4.classList.add('unlock-animation');
+                    setTimeout(function () {
+                        gift4.classList.remove('locked', 'unlock-animation');
+                        var lock = gift4.querySelector('.lock-icon');
+                        if (lock) lock.remove();
+                    }, 1000);
+                }
+            }, 500);
+        }
+
+        // Show Continue button after ALL 4 gifts are opened
+        if (window.giftsOpened.size === 4) {
+            setTimeout(function () {
+                var continueBtn = document.getElementById('allGiftsBtn');
+                if (continueBtn) {
+                    continueBtn.classList.remove('hidden');
+                    continueBtn.style.display = 'block';
+                }
+            }, 1000);
         }
     };
 }
