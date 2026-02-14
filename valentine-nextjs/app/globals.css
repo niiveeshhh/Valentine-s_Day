@@ -1,0 +1,136 @@
+/* Additional CSS animations for React version */
+
+@keyframes explode {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(calc(cos(var(--angle)) * var(--distance)),
+        calc(sin(var(--angle)) * var(--distance))) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInScale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.explosion-heart {
+  z-index: 9999;
+}
+
+.final-heart {
+  z-index: 9999;
+}
+
+.heart-screen-fill {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, rgba(255, 79, 129, 0.8) 0%, rgba(194, 24, 7, 0.9) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.heart-message {
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+}
+
+.heart-message h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.nice-try {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 79, 129, 0.9);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  animation: fadeInOut 2s ease-in-out;
+  z-index: 1000;
+}
+
+@keyframes fadeInOut {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  10%,
+  90% {
+    opacity: 1;
+  }
+}
+
+.game-area {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background-image: url('/rose.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  margin: 20px 0;
+}
+
+.bonus-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 228, 233, 0.9));
+  padding: 3rem;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 15px 60px rgba(194, 24, 7, 0.4);
+  border: 3px solid var(--rose-pink);
+}
+
+.popup-content h3 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--romantic-red);
+}
+
+.popup-content p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  color: var(--romantic-red);
+}

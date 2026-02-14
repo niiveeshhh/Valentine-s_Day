@@ -1,0 +1,63 @@
+'use client'
+
+import { useState, useEffect } from 'react';
+
+interface Props {
+    onNext: () => void;
+}
+
+export default function LoveLetterPage({ onNext }: Props) {
+    const [displayText, setDisplayText] = useState('');
+    const [isTyping, setIsTyping] = useState(true);
+
+    const letterText = `My Beautiful Jaan,
+
+As I sit here thinking about you, my heart fills with so much love that words seem inadequate to express what I truly feel. You are not just my partner, you are my soulmate, my best friend, and the love of my life.
+
+From the moment you came into my life, everything changed. You brought light into my darkest days, hope when I felt lost, and joy in every single moment we share together. Your smile has the power to make my entire world brighter, and your laughter is the sweetest melody I've ever heard.
+
+I love the way you care for me, the way you understand me even when I don't say a word. I love your kindness, your strength, and the beautiful soul that you are. Every day with you is a blessing, and I thank the universe for bringing you into my life.
+
+I promise to love you endlessly, to support you in every dream, to hold your hand through every challenge, and to cherish every moment we have together. You are my forever, my always, and my everything.
+
+Happy Valentine's Day, my love. Thank you for being mine.`;
+
+    useEffect(() => {
+        let index = 0;
+        const typingInterval = setInterval(() => {
+            if (index < letterText.length) {
+                setDisplayText(letterText.substring(0, index + 1));
+                index++;
+            } else {
+                clearInterval(typingInterval);
+                setIsTyping(false);
+            }
+        }, 20);
+
+        return () => clearInterval(typingInterval);
+    }, []);
+
+    return (
+        <section className="page active" id="page8">
+            <div className="letter-container">
+                <div className="letter-paper">
+                    <h2 className="letter-title">To My Dearest Love,</h2>
+                    <div className="letter-content" id="letterContent">
+                        {displayText}
+                        {!isTyping && (
+                            <>
+                                <br /><br />
+                                <p className="letter-signature">Forever yours,<br />Your Love ❤️</p>
+                            </>
+                        )}
+                    </div>
+                    {!isTyping && (
+                        <button className="romantic-btn" onClick={onNext}>
+                            Continue 💕
+                        </button>
+                    )}
+                </div>
+            </div>
+        </section>
+    );
+}
